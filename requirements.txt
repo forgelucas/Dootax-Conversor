@@ -1,0 +1,4 @@
+python-pptx
+python-docx
+pywin32
+Pillow
