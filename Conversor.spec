@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['Conversor.py'],
+    ['DOCX-Conversor\\Conversor.py'],
     pathex=[],
     binaries=[],
     datas=[],

@@ -5,8 +5,16 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 from docx import Document
 import win32com.client
+import pathlib
 
-# Função para converter arquivos DOC para DOCX
+def gerar_nome_unico(pasta_destino, nome_arquivo_base):
+    while True:
+        sufixo = f"_conversorcopy{random.randint(1000, 9999)}"
+        novo_nome = f"{nome_arquivo_base}{sufixo}.docx"
+        novo_caminho = os.path.join(pasta_destino, novo_nome)
+        if not os.path.exists(novo_caminho):
+            return novo_caminho
+
 def converter_docs_para_docx(caminhos):
     pasta_destino = os.path.join(os.getcwd(), "arquivos_convertidos")
     os.makedirs(pasta_destino, exist_ok=True)
@@ -16,15 +24,16 @@ def converter_docs_para_docx(caminhos):
 
     for caminho in caminhos:
         try:
-            doc = word.Documents.Open(caminho)
-            nome_arquivo = os.path.splitext(os.path.basename(caminho))[0]
-            novo_nome = f"{nome_arquivo}.docx"
+            caminho_resolvido = str(pathlib.Path(caminho).resolve())
+            doc = word.Documents.Open(caminho_resolvido)
+
+            nome_arquivo_base = os.path.splitext(os.path.basename(caminho))[0]
+            novo_nome = f"{nome_arquivo_base}.docx"
             novo_caminho = os.path.join(pasta_destino, novo_nome)
 
-            contador = 1
-            while os.path.exists(novo_caminho):
-                novo_nome = f"{nome_arquivo}_conversorcopy{random.randint(1000,9999)}.docx"
-                novo_caminho = os.path.join(pasta_destino, novo_nome)
+            # Se o nome já existir, gera um novo com número aleatório garantido único
+            if os.path.exists(novo_caminho):
+                novo_caminho = gerar_nome_unico(pasta_destino, nome_arquivo_base)
 
             doc.SaveAs(novo_caminho, FileFormat=16)
             doc.Close()
@@ -57,8 +66,22 @@ def selecionar_arquivos():
         threading.Thread(target=processar_conversao, args=(caminhos,), daemon=True).start()
 
 # Interface gráfica
+def centralizar_janela(janela):
+    janela_largura = janela.winfo_width()
+    janela_altura = janela.winfo_height()
+
+    monitor_largura = janela.winfo_screenwidth()
+    monitor_altura = janela.winfo_screenheight()
+
+    x = (monitor_largura // 2) - (janela_largura // 2)
+    y = (monitor_altura // 2) - (janela_altura // 2)
+
+    janela.geometry(f"{janela_largura}x{janela_altura}+{x}+{y}")
+
+
 janela = tk.Tk()
 janela.title("Conversor DOC para DOCX")
+centralizar_janela(janela)
 janela.geometry("400x180")
 
 label = tk.Label(janela, text="Selecione os arquivos .doc para converter", font=("Arial", 12))
