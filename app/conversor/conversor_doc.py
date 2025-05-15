@@ -3,7 +3,7 @@ import pathlib
 import random
 import win32com.client
 from conversor.utils import gerar_nome_unico
-from conversor.notificacoes import notificar_sucesso
+from conversor.notificacoes import notificar_sucesso, notificar_erro
 
 def converter_docs_para_docx(caminhos):
     pasta_destino = os.path.join(os.getcwd(), "arquivos_convertidos")
@@ -26,9 +26,12 @@ def converter_docs_para_docx(caminhos):
             doc.SaveAs(novo_caminho, FileFormat=16)
             doc.Close()
 
-            notificar_sucesso(novo_caminho)  # <-- agora dentro do try
+            notificar_sucesso(novo_caminho)
 
         except Exception as e:
-            print(f"Erro ao converter {caminho}: {e}")
+            erro_msg = f"Erro ao converter o arquivo:\n{caminho}\n\nDetalhes: {str(e)}"
+            print(erro_msg)
+            notificar_erro(erro_msg)
 
     word.Quit()
+    
