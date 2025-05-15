@@ -10,3 +10,4 @@ def converter_pptx_para_docx(caminho_pptx, caminho_docx):
     criar_docx_com_formatacao_formatada(slides_formatados, pasta_destino_imagens, caminho_docx)
 
     print(f"Conversão concluída! Documento salvo em: {caminho_docx}")
+
