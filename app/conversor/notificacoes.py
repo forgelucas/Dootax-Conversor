@@ -1,4 +1,3 @@
-# conversor/notificacoes.py
 import os
 import sys
 
@@ -20,7 +19,6 @@ def notificar_sucesso(caminho_saida: str, titulo="Conversão concluída"):
                             f"Arquivo convertido com sucesso!\n\n{caminho_saida}")
         root.destroy()
     except Exception:
-        # --- Windows nativo (fallback) ---
         if sys.platform.startswith("win"):
             import ctypes
             ctypes.windll.user32.MessageBoxW(

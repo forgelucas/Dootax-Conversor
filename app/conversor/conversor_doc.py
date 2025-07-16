@@ -1,11 +1,10 @@
 import os
 import pathlib
-import random
 import win32com.client
-from conversor.utils import gerar_nome_unico
-from conversor.notificacoes import notificar_sucesso, notificar_erro
+from app.conversor.utils import gerar_nome_unico
+from app.conversor.notificacoes import notificar_sucesso, notificar_erro
 
-def converter_docs_para_docx(caminhos):
+def converter_doc_para_docx(caminhos):
     pasta_destino = os.path.join(os.getcwd(), "arquivos_convertidos")
     os.makedirs(pasta_destino, exist_ok=True)
 

@@ -1,14 +1,21 @@
 import os
-import random
 import re
 
 def gerar_nome_unico(pasta_destino, nome_arquivo_base):
-    while True:
-        sufixo = f"_conversorcopy{random.randint(1000, 9999)}"
-        novo_nome = f"{nome_arquivo_base}{sufixo}.docx"
-        novo_caminho = os.path.join(pasta_destino, novo_nome)
-        if not os.path.exists(novo_caminho):
-            return novo_caminho
+    padrao = re.compile(re.escape(nome_arquivo_base) + r'_conversorcopy(\d+)\.docx')
+    maior_numero = 0
+
+    for nome in os.listdir(pasta_destino):
+        match = padrao.match(nome)
+        if match:
+            numero = int(match.group(1))
+            if numero > maior_numero:
+                maior_numero = numero
+
+    novo_numero = maior_numero + 1
+    novo_nome = f"{nome_arquivo_base}_conversorcopy{novo_numero}.docx"
+    novo_caminho = os.path.join(pasta_destino, novo_nome)
+    return novo_caminho
 
 def clean_text(texto: str) -> str:
     return re.sub(r'[\x00-\x08\x0B-\x0C\x0E-\x1F]', '', texto)

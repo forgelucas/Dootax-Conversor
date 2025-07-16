@@ -1,4 +1,6 @@
-python-pptx
 python-docx
+python-pptx
+PyMuPDF
+xlwings
 pywin32
 Pillow

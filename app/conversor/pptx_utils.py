@@ -1,24 +1,23 @@
-import os
-import re
-from pptx import Presentation
-
-def extrair_texto_imagens_pptx(caminho_pptx, pasta_destino):
+def extrair_texto_imagens_pptx(caminho_pptx):
+    from pptx import Presentation
     prs = Presentation(caminho_pptx)
-    if not os.path.exists(pasta_destino):
-        os.makedirs(pasta_destino)
-    
-    contador_imagens = 0
-    for i, slide in enumerate(prs.slides):
+    imagens_por_slide = []
+
+    for slide in prs.slides:
+        imagens_slide = []
         for shape in slide.shapes:
             if hasattr(shape, "image"):
                 image = shape.image
-                ext = image.ext
-                path_img = os.path.join(pasta_destino, f"imagem_{i+1}_{contador_imagens+1}.{ext}")
-                with open(path_img, "wb") as f:
-                    f.write(image.blob)
-                contador_imagens += 1
+                imagens_slide.append({
+                    "dados": image.blob,
+                    "ext": image.ext
+                })
+        imagens_por_slide.append(imagens_slide)
+        
+    return imagens_por_slide
 
 def extrair_texto_formatado_do_pptx(caminho_pptx):
+    from pptx import Presentation
     prs = Presentation(caminho_pptx)
     slides_formatados = []
 
