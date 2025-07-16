@@ -45,6 +45,7 @@ python -m app.main
 
 ### 📂 Estrutura do Projeto
 
+```plaintext
 Dootax-Conversor/
 ├── app/
 │   ├── main.py
@@ -60,7 +61,8 @@ Dootax-Conversor/
 │       └── utils.py
 ├── arquivos_convertidos/
 ├── requirements.txt
-└── .gitignore
+```
+
 
 ---
 
