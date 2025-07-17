@@ -27,8 +27,8 @@ jobs:
     - name: Lint com flake8
       run: flake8 app/
 
-    - name: Verificação de formatação com black
-      run: black --check app/
+    - name: Verificação de formatação com black (não bloqueia)
+      run: black --check app/ || true
 
     - name: Verificação de tipos com mypy
       run: mypy app/

@@ -8,7 +8,7 @@ def notificar_sucesso(caminho_saida: str, titulo="Conversão concluída"):
     try:
         root = tk.Tk()
         root.withdraw()                       
-        messagebox.showinfo(titulo,f"Arquivo convertido com sucesso!\n\n{caminho_saida}")
+        messagebox.showinfo(titulo, f"Arquivo convertido com sucesso!\n\n{caminho_saida}")
         root.destroy()
     except Exception:
         if sys.platform.startswith("win"):
