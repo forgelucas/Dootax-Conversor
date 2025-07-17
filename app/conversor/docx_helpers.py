@@ -11,7 +11,7 @@ def criar_docx_com_formatacao_formatada(slides_formatados, pasta_imagens, caminh
                 doc.add_paragraph(bloco['texto'])
                 try:
                     slide_num = int(bloco['texto'].split()[1].replace(":", ""))
-                except:
+                except (IndexError, ValueError):
                     slide_num = None
             elif bloco['tipo'] == 'paragrafo':
                 par = doc.add_paragraph(style='List Bullet' if bloco['bullet'] else None)
