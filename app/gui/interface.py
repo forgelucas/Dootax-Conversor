@@ -5,7 +5,6 @@ from app.conversor.utils import centralizar_janela
 from app.controladores.seletores import selecionar_docs, selecionar_pptx, selecionar_excel, selecionar_pdf
 import os
 import sys
-from PIL import Image, ImageTk
 
 def resource_path(relative_path):
     if hasattr(sys, '_MEIPASS'):
