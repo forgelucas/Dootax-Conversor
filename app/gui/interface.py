@@ -33,7 +33,7 @@ def iniciar_interface():
                      borderwidth=0)
     estilo.map("TButton", background=[('active', '#A7DCC2')])
 
-    caminho_logo = resource_path("logo_dootax.png")
+    caminho_logo = resource_path("app/gui/logo_dootax.png")
     img_logo = Image.open(caminho_logo)
     img_logo = img_logo.resize((120, 120), Image.Resampling.LANCZOS)
     logo = ImageTk.PhotoImage(img_logo)
