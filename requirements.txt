@@ -2,5 +2,4 @@ python-docx
 python-pptx
 PyMuPDF
 xlwings
-pywin32
-Pillow
+pywin32; sys_platform == 'win32'
