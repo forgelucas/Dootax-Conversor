@@ -47,20 +47,37 @@ python -m app.main
 
 ```plaintext
 Dootax-Conversor/
+├── .github/
+│   └── workflows/
+│       └── ci.yml                # Pipeline de CI com lint, type checking, testes etc.
 ├── app/
-│   ├── main.py
-│   ├── gui/interface.py
-│   ├── controladores/seletores.py
-│   └── conversor/
-│       ├── conversor_doc.py
-│       ├── conversor_pdf.py
-│       ├── conversor_pptx.py
-│       ├── conversor_excel.py
-│       ├── pptx_utils.py
-│       ├── notificacoes.py
-│       └── utils.py
-├── arquivos_convertidos/
-├── requirements.txt
+│   ├── __init__.py              # Torna 'app' um pacote Python
+│   ├── main.py                  # Ponto de entrada da aplicação
+│
+│   ├── controladores/
+│   │   ├── __init__.py
+│   │   └── seletores.py         # Controla seleção dos arquivos na interface
+│
+│   ├── conversor/
+│   │   ├── __init__.py
+│   │   ├── conversor_doc.py
+│   │   ├── conversor_excel.py
+│   │   ├── conversor_pdf.py
+│   │   ├── conversor_pptx.py
+│   │   ├── docx_helpers.py      # Auxiliares para gerar e formatar docx
+│   │   ├── notificacoes.py      # Toasts, alertas e abertura de pasta convertida
+│   │   ├── pptx_utils.py        # Extração de texto/imagem dos slides
+│   │   └── utils.py             # Funções utilitárias compartilhadas
+│
+│   ├── gui/
+│   │   ├── __init__.py
+│   │   ├── interface.py         # Interface gráfica principal
+│   │   └── logo_dootax.png      # Imagem da logo usada no app
+│
+├── arquivos_convertidos/        # Pasta onde os arquivos convertidos são salvos
+├── requirements.txt             # Dependências do projeto
+├── setup.cfg                    # Configurações do flake8, mypy, etc.
+└── README.md                    # Documentação do projeto
 ```
 
 
