@@ -1,7 +1,6 @@
 import os
 import xlwings as xw
 from docx import Document
-from docx.shared import Inches
 from app.conversor.notificacoes import notificar_sucesso, notificar_erro
 from app.conversor.utils import gerar_nome_unico  
 
