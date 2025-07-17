@@ -1,17 +1,13 @@
 import tkinter as tk
 from tkinter import ttk
-import os
-import sys
 from PIL import Image, ImageTk
 from app.conversor.utils import centralizar_janela
 from app.controladores.seletores import selecionar_docs, selecionar_pptx, selecionar_excel, selecionar_pdf
-
 import os
 import sys
 from PIL import Image, ImageTk
 
 def resource_path(relative_path):
-    """Resolve caminho relativo para uso no .exe ou em desenvolvimento"""
     if hasattr(sys, '_MEIPASS'):
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.join(os.path.dirname(__file__), relative_path)
@@ -33,7 +29,7 @@ def iniciar_interface():
                      borderwidth=0)
     estilo.map("TButton", background=[('active', '#A7DCC2')])
 
-    caminho_logo = resource_path("app/gui/logo_dootax.png")
+    caminho_logo = resource_path("logo_dootax.png")
     img_logo = Image.open(caminho_logo)
     img_logo = img_logo.resize((120, 120), Image.Resampling.LANCZOS)
     logo = ImageTk.PhotoImage(img_logo)

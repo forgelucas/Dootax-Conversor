@@ -2,7 +2,6 @@ def extrair_texto_imagens_pptx(caminho_pptx):
     from pptx import Presentation
     prs = Presentation(caminho_pptx)
     imagens_por_slide = []
-
     for slide in prs.slides:
         imagens_slide = []
         for shape in slide.shapes:
@@ -12,15 +11,13 @@ def extrair_texto_imagens_pptx(caminho_pptx):
                     "dados": image.blob,
                     "ext": image.ext
                 })
-        imagens_por_slide.append(imagens_slide)
-        
+        imagens_por_slide.append(imagens_slide) 
     return imagens_por_slide
 
 def extrair_texto_formatado_do_pptx(caminho_pptx):
     from pptx import Presentation
     prs = Presentation(caminho_pptx)
     slides_formatados = []
-
     for idx, slide in enumerate(prs.slides, start=1):
         conteudo_slide = [{'tipo': 'titulo', 'texto': f"Slide {idx}:"}]
         for shape in slide.shapes:
@@ -32,5 +29,4 @@ def extrair_texto_formatado_do_pptx(caminho_pptx):
                     par_dict['runs'].append({'texto': run.text, 'bold': run.font.bold})
                 conteudo_slide.append(par_dict)
         slides_formatados.append(conteudo_slide)
-
     return slides_formatados
