@@ -3,3 +3,4 @@ python-pptx
 PyMuPDF
 xlwings
 pywin32; sys_platform == 'win32'
+markitdown[all]
