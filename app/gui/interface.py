@@ -2,7 +2,11 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 from app.conversor.utils import centralizar_janela
-from app.controladores.seletores import selecionar_docs, selecionar_pptx, selecionar_excel, selecionar_pdf
+from app.controladores.seletores import (
+    selecionar_docs, selecionar_pptx,
+    selecionar_excel, selecionar_pdf,
+    selecionar_para_markdown
+)
 import os
 import sys
 
@@ -47,6 +51,7 @@ def iniciar_interface():
         ("Converter PPTX para DOCX", selecionar_pptx),
         ("Converter XLS para DOCX", selecionar_excel),
         ("Converter PDF para DOCX", selecionar_pdf),
+        ("Converter para Markdown (.md)", selecionar_para_markdown)
     ]
 
     for i, (texto, comando) in enumerate(botoes):
