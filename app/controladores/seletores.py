@@ -4,7 +4,6 @@ from app.conversor.conversor_pptx import converter_pptx_para_docx
 from app.conversor.conversor_doc import converter_doc_para_docx
 from app.conversor.conversor_excel import converter_excel_para_docx
 from markitdown import MarkItDown
-import os
 
 def selecionar_pdf():
     caminhos = filedialog.askopenfilenames(title="Selecionar arquivos PDF", filetypes=[("Arquivos PDF", "*.pdf")])
