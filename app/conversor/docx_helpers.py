@@ -1,28 +1,43 @@
-import os
 from docx import Document
 from docx.shared import Inches
+from io import BytesIO
+from PIL import Image
 
-def criar_docx_com_formatacao_formatada(slides_formatados, pasta_imagens, caminho_docx):
+EXTENSOES_VALIDAS = {
+    "jpg": "JPEG", "jpeg": "JPEG", "png": "PNG",
+    "gif": "GIF", "bmp": "BMP", "tiff": "TIFF", "webp": "WEBP"
+}
+
+def criar_docx_com_formatacao_formatada(slides_formatados, imagens_por_slide, caminho_docx):
     doc = Document()
-    for slide in slides_formatados:
-        slide_num = None
+    for indice, slide in enumerate(slides_formatados):
         for bloco in slide:
             if bloco['tipo'] == 'titulo':
                 doc.add_paragraph(bloco['texto'])
-                try:
-                    slide_num = int(bloco['texto'].split()[1].replace(":", ""))
-                except (IndexError, ValueError):
-                    slide_num = None
             elif bloco['tipo'] == 'paragrafo':
-                par = doc.add_paragraph(style='List Bullet' if bloco['bullet'] else None)
+                par = doc.add_paragraph(style='List Bullet' if bloco.get('bullet') else None)
                 for run in bloco['runs']:
                     r = par.add_run(run['texto'])
-                    if run['bold']:
+                    if run.get('bold'):
                         r.bold = True
-        if slide_num is not None:
-            for img_file in os.listdir(pasta_imagens):
-                if img_file.startswith(f"imagem_{slide_num}_"):
-                    caminho_img = os.path.join(pasta_imagens, img_file)
-                    doc.add_picture(caminho_img, width=Inches(4.0))
+
+        # Inserir imagens do slide atual, se houver
+        if imagens_por_slide and indice < len(imagens_por_slide):
+            for img in imagens_por_slide[indice]:
+                try:
+                    extensao = img['ext'].lower()
+                    formato = EXTENSOES_VALIDAS.get(extensao, "PNG")
+
+                    image = Image.open(BytesIO(img['dados']))
+                    buffer = BytesIO()
+                    image.save(buffer, format=formato)
+                    buffer.seek(0)
+
+                    doc.add_picture(buffer, width=Inches(4.0))
+                except Exception as e:
+                    print(f"Erro ao inserir imagem do slide {indice+1}: {e}")
+                    continue
+
         doc.add_paragraph()
+
     doc.save(caminho_docx)
