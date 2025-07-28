@@ -1,14 +1,12 @@
 # mypy: ignore-errors
-import os
 import sys
 import tkinter as tk
 from tkinter import messagebox
 
 def notificar_sucesso(caminho_saida: str, titulo="Conversão concluída"):
-    pasta = os.path.dirname(os.path.abspath(caminho_saida))
     try:
         root = tk.Tk()
-        root.withdraw()                       
+        root.withdraw()
         messagebox.showinfo(titulo, f"Arquivo convertido com sucesso!\n\n{caminho_saida}")
         root.destroy()
     except Exception:
@@ -22,8 +20,6 @@ def notificar_sucesso(caminho_saida: str, titulo="Conversão concluída"):
             )
         else:
             print(f"[INFO] {titulo}: {caminho_saida}")
-
-    os.startfile(pasta) if sys.platform.startswith("win") else os.system(f'xdg-open "{pasta}"')
 
 def notificar_erro(mensagem: str, titulo="Erro na conversão"):
     try:

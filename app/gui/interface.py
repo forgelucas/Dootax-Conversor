@@ -1,6 +1,5 @@
-import tkinter as tk
-from tkinter import ttk
-from PIL import Image, ImageTk
+import customtkinter as ctk
+from PIL import Image
 from app.conversor.utils import centralizar_janela
 from app.controladores.seletores import (
     selecionar_docs, selecionar_pptx,
@@ -16,35 +15,22 @@ def resource_path(relative_path):
     return os.path.join(os.path.dirname(__file__), relative_path)
 
 def iniciar_interface():
-    janela = tk.Tk()
-    janela.title("Dootax Converter")
-    janela.configure(bg="white")
-    centralizar_janela(janela)
-    janela.geometry("400x460")
-    janela.resizable(False, False)
+    ctk.set_appearance_mode("dark")
+    ctk.set_default_color_theme("green")
 
-    estilo = ttk.Style()
-    estilo.theme_use("default")
-    estilo.configure("TButton",
-                     font=("Segoe UI", 10, "bold"),
-                     background="#B7E4C7",
-                     foreground="black",
-                     borderwidth=0)
-    estilo.map("TButton", background=[('active', '#A7DCC2')])
+    janela = ctk.CTk()
+    janela.title("Conversor Dootax")
+    janela.geometry("420x480")
+    janela.resizable(False, False)
+    centralizar_janela(janela)
 
     caminho_logo = resource_path("logo_dootax.png")
-    img_logo = Image.open(caminho_logo)
-    img_logo = img_logo.resize((120, 120), Image.Resampling.LANCZOS)
-    logo = ImageTk.PhotoImage(img_logo)
-    label_logo = tk.Label(janela, image=logo, bg="white")
-    label_logo.image = logo
-    label_logo.pack(pady=(20, 5))
+    img_logo = Image.open(caminho_logo).resize((200, 70))
+    logo = ctk.CTkImage(light_image=img_logo, size=(200, 70))
+    label_logo = ctk.CTkLabel(janela, image=logo, text="")
+    label_logo.pack(pady=(20, 10))
 
-    label_titulo = tk.Label(janela, text="Conversor Dootax", font=("Segoe UI", 16, "bold"), bg="white", fg="#5A5A5A")
-    label_titulo.pack(pady=(0, 15))
-
-    frame_botoes = tk.Frame(janela, bg="white")
-    frame_botoes.pack(pady=(0, 15))
+    label_logo.pack(pady=(20, 20))
 
     botoes = [
         ("Converter DOC para DOCX", selecionar_docs),
@@ -54,8 +40,8 @@ def iniciar_interface():
         ("Converter para Markdown (.md)", selecionar_para_markdown)
     ]
 
-    for i, (texto, comando) in enumerate(botoes):
-        btn = ttk.Button(frame_botoes, text=texto, command=comando, width=30)
-        btn.grid(row=i, column=0, padx=10, pady=5, ipady=4)
+    for texto, comando in botoes:
+        btn = ctk.CTkButton(janela, text=texto, command=comando, width=280, height=40)
+        btn.pack(pady=12)
 
     janela.mainloop()
